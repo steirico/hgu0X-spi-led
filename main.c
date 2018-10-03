@@ -22,26 +22,26 @@ void init_spi()
 void init_max6966()
 {
   uint8_t cWriteBuf[8];
-  uint8_t *pcWriteBuf;
+  char* pcWriteBuf;
 
   cWriteBuf[0]  = 0x15;			// Set Global Full Current
   cWriteBuf[1]  = 0x00;
-  pcWriteBuf = &cWriteBuf[0];
+  pcWriteBuf = (char*)&cWriteBuf[0];
   bcm2835_spi_writenb(pcWriteBuf,2);
 
   cWriteBuf[2]  = 0x12;			// Set Ramp Up Time
   cWriteBuf[3]  = 0x02;
-  pcWriteBuf = &cWriteBuf[2];
+  pcWriteBuf = (char*)&cWriteBuf[2];
   bcm2835_spi_writenb(pcWriteBuf,2);
 
   cWriteBuf[4]  = 0x11;			// Set Ramp Down Time
   cWriteBuf[5]  = 0x02;
-  pcWriteBuf = &cWriteBuf[4];
+  pcWriteBuf = (char*)&cWriteBuf[4];
   bcm2835_spi_writenb(pcWriteBuf,2);
 
   cWriteBuf[6]  = 0x10;			// Set Normal Mode
   cWriteBuf[7]  = 0x01;
-  pcWriteBuf = &cWriteBuf[6];
+  pcWriteBuf = (char*)&cWriteBuf[6];
   bcm2835_spi_writenb(pcWriteBuf,2);
 }
 
@@ -69,7 +69,7 @@ uint8_t calcLEDValueForMaxDriver(uint8_t ucValue)
 void writeLedValues(uint8_t ucLEDNumber, uint8_t ucValue_R, uint8_t ucValue_G, uint8_t ucValue_B)
 {
   uint8_t cWriteBuf[2];
-  uint8_t *pcWriteBuf;
+  char* pcWriteBuf;
   uint8_t ucLEDValueTmp;
 
   uint8_t ucCnt = 0;
@@ -89,7 +89,7 @@ void writeLedValues(uint8_t ucLEDNumber, uint8_t ucValue_R, uint8_t ucValue_G, u
     }
     cWriteBuf[1] = calcLEDValueForMaxDriver(ucLEDValueTmp);
 
-    pcWriteBuf = &cWriteBuf[0];
+    pcWriteBuf = (char*)&cWriteBuf[0];
     bcm2835_spi_writenb(pcWriteBuf,2);
   }
 }
