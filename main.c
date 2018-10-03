@@ -94,6 +94,13 @@ void writeLedValues(uint8_t ucLEDNumber, uint8_t ucValue_R, uint8_t ucValue_G, u
   }
 }
 
+void releasePulldown()
+{
+  uint8_t cWriteBuf[2] = {9, 0x00};
+
+  bcm2835_spi_writenb((char*)&cWriteBuf,2);
+}
+
 int main(int argc, char *argv[])
 {
   if(argc < 10) {
@@ -123,6 +130,8 @@ int main(int argc, char *argv[])
 
   init_spi();
   init_max6966();
+
+  releasePulldown();
 
   writeLedValues(0,uiLEDValues[0],uiLEDValues[1],uiLEDValues[2]);
   writeLedValues(1,uiLEDValues[3],uiLEDValues[4],uiLEDValues[5]);
