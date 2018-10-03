@@ -1,4 +1,4 @@
-// Build with command: gcc -o spi_stage2 spi_stage2.c -l bcm2835
+// Build with command: gcc -Wall -I. -o hgu0X-led main.c bcm2835.c
 //
 
 
